@@ -1,0 +1,63 @@
+h1 {
+  text-align: center
+}
+
+##{boardId} {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+.space {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+[-data-number='0'] {
+  left: 0px;
+  top: 0px;
+}
+
+[-data-number='1'] {
+  left: 100px;
+  top: 0px;
+}
+
+[-data-number='2'] {
+  left: 200px;
+  top: 0px;
+}
+
+[-data-number='3'] {
+  left: 0px;
+  top: 100px;
+}
+
+[-data-number='4'] {
+  left: 100px;
+  top: 100px;
+}
+
+[-data-number='5'] {
+  left: 200px;
+  top: 100px;
+}
+
+[-data-number='6'] {
+  left: 0px;
+  top: 200px;
+}
+
+[-data-number='7'] {
+  left: 100px;
+  top: 200px;
+}
+
+[-data-number='8'] {
+  left: 200px;
+  top: 200px;
+}
+

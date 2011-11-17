@@ -1,0 +1,5 @@
+<h1>The Gentleman's Game of TicTacToe
+<div ##{boardId}>
+  $forall number <- spaces
+    <div .space -data-number="#{show number}">
+      #{show number}

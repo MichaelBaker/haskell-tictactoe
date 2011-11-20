@@ -1,6 +1,11 @@
 jQuery(function() {
   $(".space").click(function() {
-    jQuery.get("move/getit").success(function(data){
+    var board = "";
+    jQuery(".space").each(function() {
+      board = board + $(this).html();
+    });
+
+    jQuery.get("move", {board : board, move : "a1"}).success(function(data){
       console.log(data);
     });
   });

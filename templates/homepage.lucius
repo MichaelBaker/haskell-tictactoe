@@ -2,7 +2,7 @@ h1 {
   text-align: center
 }
 
-##{boardId} {
+#board {
   position: relative;
   width: 300px;
   height: 300px;

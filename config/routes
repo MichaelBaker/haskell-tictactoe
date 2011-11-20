@@ -1,7 +1,7 @@
 /static StaticR Static getStatic
 
 /favicon.ico FaviconR GET
-/robots.txt RobotsR   GET
-/move/#String MoveR   GET
+/robots.txt  RobotsR  GET
+/move/       MoveR    GET
 
 / RootR GET

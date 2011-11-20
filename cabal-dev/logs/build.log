@@ -725,3 +725,15 @@ dependencies: base-4.3.1.0 bytestring-0.9.1.10 enumerator-0.4.15
 install-outcome: InstallOk
 docs-outcome: NotTried
 tests-outcome: NotTried
+
+package: yesod-json-0.2.1
+os: osx
+arch: i386
+compiler: ghc-7.0.3
+client: cabal-install-0.10.2
+flags:
+dependencies: aeson-native-0.3.3.1 base-4.3.1.0 containers-0.4.0.0
+              shakespeare-js-0.10.2 text-0.11.0.6 vector-0.9 yesod-core-0.9.3.3
+install-outcome: InstallOk
+docs-outcome: NotTried
+tests-outcome: NotTried

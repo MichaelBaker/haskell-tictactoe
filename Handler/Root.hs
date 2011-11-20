@@ -12,7 +12,7 @@ import Import
 getRootR :: Handler RepHtml
 getRootR = do
     defaultLayout $ do
-        let spaces = [0..8]
+        let spaces = [0..8] :: [Integer]
         boardId <- lift newIdent
         setTitle "~ How Civilized ~"
         $(widgetFile "homepage")

@@ -1,5 +1,7 @@
 jQuery(function() {
   $(".space").click(function() {
-    console.log($(this).attr("-data-number"));
+    jQuery.get("move/getit").success(function(data){
+      console.log(data);
+    });
   });
 });

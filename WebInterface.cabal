@@ -31,6 +31,7 @@ library
                      Settings
                      Settings.StaticFiles
                      Handler.Root
+                     Handler.Move
 
     ghc-options:   -Wall -threaded -O0
 
@@ -65,6 +66,7 @@ executable         WebInterface
                 TypeFamilies
 
     build-depends: base                          >= 4          && < 5
+                 , yesod-json                    >= 0.2        && < 0.3
                  , yesod-core                    >= 0.9.3      && < 0.10
                  , yesod-static                  >= 0.3.1      && < 0.4
                  , yesod-default                 >= 0.4        && < 0.5

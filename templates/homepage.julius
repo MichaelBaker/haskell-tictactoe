@@ -1,11 +1,13 @@
 jQuery(function() {
-  $(".space").click(function() {
-    var board = "";
-    jQuery(".space").each(function() {
-      board = board + $(this).html();
-    });
+  var Game  = window.Game;
+  var X     = window.X;
+  var O     = window.O;
+  var Empty = window.Empty;
 
-    jQuery.get("move", {board : board, move : "a1"}).success(function(data){
+  var game = new Game({x: X, o: O, empty: Empty});
+
+  $(".space").click(function() {
+    jQuery.get("move", {board : "", move : "a1"}).success(function(data){
       console.log(data);
     });
   });

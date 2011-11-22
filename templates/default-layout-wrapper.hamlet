@@ -4,6 +4,11 @@
         <title>#{pageTitle pc}
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js">
         <script src="/static/js/raphael.js">
+        <script src="/static/js/underscore.js">
+        <script src="/static/js/game.js">
+        <script src="/static/js/oToken.js">
+        <script src="/static/js/xToken.js">
+        <script src="/static/js/emptyToken.js">
         ^{pageHead pc}
     <body
         ^{pageBody pc}

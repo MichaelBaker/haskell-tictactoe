@@ -7,8 +7,15 @@ jQuery(function() {
   var game = new Game({x: X, o: O, empty: Empty});
 
   $(".space").click(function() {
-    jQuery.get("move", {board : "", move : "a1"}).success(function(data){
-      console.log(data);
-    });
+    var spaceNumber = jQuery(this).attr("-data-number");
+    var result = game.tryToPlaceXToken(spaceNumber);
+
+    if(result == "fail"){
+      console.log("You Cannot move here");
+    }
+    else {
+      var getRequest = jQuery.get("move", {board : game.boardString()});
+      getRequest.success(function(data){ console.log(data); });
+    }
   });
 });

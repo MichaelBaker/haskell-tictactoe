@@ -12,12 +12,12 @@ window.Game = function(tokens) {
     spaces.push(new emptyToken());
   }
 
-  this.placeXToken = function(space) {
+  this.tryToPlaceXToken = function(space) {
     if(space < spaces.length && space >= 0 && spaces[space] instanceof emptyToken) {
       spaces[space] = new xToken();
       return true;
     } else {
-      return false;
+      return new Failure();
     }
   };
 

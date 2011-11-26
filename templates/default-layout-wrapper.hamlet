@@ -9,6 +9,7 @@
         <script src="/static/js/oToken.js">
         <script src="/static/js/xToken.js">
         <script src="/static/js/emptyToken.js">
+        <script src="/static/js/maybe.js">
         ^{pageHead pc}
     <body
         ^{pageBody pc}

@@ -12,16 +12,31 @@ window.Game = function(tokens) {
     spaces.push(new emptyToken());
   }
 
-  this.tryToPlaceXToken = function(space) {
+  var tryToPlaceToken = function(token, space) {
     if(space < spaces.length && space >= 0 && spaces[space] instanceof emptyToken) {
-      spaces[space] = new xToken();
+      spaces[space] = new token();
       return true;
     } else {
       return new Failure();
     }
   };
 
+  this.tryToPlaceXToken = function(space) {
+    return tryToPlaceToken(xToken, space);
+  };
+
+  this.tryToPlaceOToken = function(space) {
+    return tryToPlaceToken(oToken, space);
+  };
+
   this.tokenAt = function(space) {
     return spaces[space];
+  };
+
+  this.boardQueryString = function() {
+    var spaceStrings = _(spaces).map(function(space) {
+      return space.toQueryString();
+    });
+    return spaceStrings.join("");
   };
 };

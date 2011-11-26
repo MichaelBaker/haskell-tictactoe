@@ -1,8 +1,9 @@
 jQuery(function() {
-  var Game  = window.Game;
-  var X     = window.X;
-  var O     = window.O;
-  var Empty = window.Empty;
+  var Game    = window.Game;
+  var X       = window.X;
+  var O       = window.O;
+  var Empty   = window.Empty;
+  var Failure = window.Failure;
 
   var game = new Game({x: X, o: O, empty: Empty});
 
@@ -10,12 +11,17 @@ jQuery(function() {
     var spaceNumber = jQuery(this).attr("-data-number");
     var result = game.tryToPlaceXToken(spaceNumber);
 
-    if(result == "fail"){
+    if(result instanceof Failure){
       console.log("You Cannot move here");
     }
     else {
-      var getRequest = jQuery.get("move", {board : game.boardString()});
-      getRequest.success(function(data){ console.log(data); });
+      var getRequest = jQuery.get("move", {board : game.boardQueryString()});
+      getRequest.success(function(data) {
+        console.log(data);
+      });
+      getRequest.error(function() {
+        console.log("I'm calling the police.");
+      });
     }
   });
 });

@@ -4,8 +4,9 @@ jQuery(function() {
   var O       = window.O;
   var Empty   = window.Empty;
   var Failure = window.Failure;
+  var tokens  = {x: X, o: O, empty: Empty};
 
-  var game = new Game({x: X, o: O, empty: Empty});
+  var game = new Game(tokens);
 
   $(".space").click(function() {
     var spaceNumber = jQuery(this).attr("-data-number");
@@ -17,7 +18,14 @@ jQuery(function() {
     else {
       var getRequest = jQuery.get("move", {board : game.boardQueryString()});
       getRequest.success(function(data) {
-        console.log(data);
+        var i = 0;
+        var token;
+
+        game = Game.fromArray(tokens, data.newBoard);
+        for(i = 0; i < 9; i++) {
+          token = game.tokenAt(i);
+          jQuery(".space[-data-number='" + i.toString() + "']").html(token.toString());
+        }
       });
       getRequest.error(function() {
         console.log("I'm calling the police.");

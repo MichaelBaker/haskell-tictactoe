@@ -40,3 +40,18 @@ window.Game = function(tokens) {
     return spaceStrings.join("");
   };
 };
+
+window.Game.fromArray = function(tokens, array) {
+  var i = 0;
+  var game = new Game(tokens);
+
+  _(array).each(function(tokenString, index) {
+    if(tokenString === "X") {
+      game.tryToPlaceXToken(index);
+    } else if(tokenString === "O") {
+      game.tryToPlaceOToken(index);
+    }
+  });
+
+  return game;
+};

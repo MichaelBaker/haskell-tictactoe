@@ -2,19 +2,26 @@ module Handler.Move where
 
 import Import
 import Yesod.Json
-import Data.Text hiding (zip, foldr, head, map)
+import Data.Text hiding (zip, foldr, head, map, unwords)
+import GameState
+import Token
+import Board
 
 getMoveR :: Handler RepJson
 getMoveR = do
   board <- lookupGetParam boardParam
-  move  <- lookupGetParam moveParam
-
-  jsonToRepJson $ jsonMap [("newBoard", jsonList $ newBoard board)]
-
+  jsonToRepJson $ jsonMap [("newBoard", newBoard board)]
   where newBoard board = case board of
-                           Nothing      -> [jsonScalar "Nothing"]
-                           Just message -> map (jsonScalar . (:[])) $ foldr (\a b -> (head $ show $ snd a):(fst a):b ) "" result
-                             where result = zip (unpack message) [0..8] :: [(Char, Integer)]
+                           Nothing      -> jsonList ["Nothing"]
+                           Just message -> jsonList . map jsonScalar . map show $ makeMove message
+
+queryCharToToken 'e' = Empty
+queryCharToToken 'x' = X
+queryCharToToken 'o' = O
+
+createGameState = GameState O . Board . map queryCharToToken
+
+makeMove text = tokens . board . bestMove . createGameState $ unpack text
 
 boardParam :: Text
 boardParam = pack "board"

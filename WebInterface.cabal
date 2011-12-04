@@ -39,7 +39,7 @@ library
                      Tree
                      Minimax
 
-    ghc-options: -Wall -threaded -O0
+    ghc-options: -static -Wall -threaded -O0
     hs-source-dirs: ., src
 
     extensions: TemplateHaskell
@@ -57,9 +57,9 @@ executable         WebInterface
 
     if flag(production)
         cpp-options:   -DPRODUCTION
-        ghc-options:   -Wall -threaded -O2
+        ghc-options:   -static -Wall -threaded -O2
     else
-        ghc-options:   -Wall -threaded -O0
+        ghc-options:   -static -Wall -threaded -O0
 
     hs-source-dirs: ., src
 

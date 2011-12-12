@@ -5,4 +5,3 @@
 <div #board>
   $forall number <- spaces
     <div .space -data-number="#{show number}">
-      #{show number}

@@ -1,22 +1,20 @@
 jQuery(function() {
-  var Game    = window.Game;
-  var X       = window.X;
-  var O       = window.O;
-  var Empty   = window.Empty;
-  var Failure = window.Failure;
   var tokens  = {x: X, o: O, empty: Empty};
 
   var game = new Game(tokens);
 
   $(".space").click(function() {
     var spaceNumber = jQuery(this).attr("-data-number");
-    var result = game.tryToPlaceXToken(spaceNumber);
+    var result      = game.tryToPlaceXToken(spaceNumber);
+    var space       = jQuery(this);
 
     if(result instanceof Failure){
       console.log("You Cannot move here");
     }
     else {
       var getRequest = jQuery.get("move", {board : game.boardQueryString()});
+
+      space.html();
       getRequest.success(function(data) {
         var i = 0;
         var token;

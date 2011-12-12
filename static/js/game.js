@@ -1,12 +1,10 @@
 window.Game = function(tokens) {
-  var xToken     = tokens.x;
-  var oToken     = tokens.o;
-  var emptyToken = tokens.empty;
-
-  var i = 0;
-
+  var xToken       = tokens.x;
+  var oToken       = tokens.o;
+  var emptyToken   = tokens.empty;
+  var i            = 0;
   var isPlayerTurn = false;
-  var spaces = [];
+  var spaces       = [];
 
   for(i = 0; i < 9; i++) {
     spaces.push(new emptyToken());

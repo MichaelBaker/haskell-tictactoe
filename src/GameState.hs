@@ -32,5 +32,9 @@ findMove state comparison strategy = fst $ foldl' comparison (head pairs) pairs
                                            values = map strategy moves
                                            pairs  = zip moves values
 
-findMax a@(_, x) b@(_, y) = if x > y then a else b
-findMin a@(_, x) b@(_, y) = if x < y then a else b
+findMax a@(i, x) b@(n, y) = if x > y then a else b
+findMin a@(i, x) b@(n, y)
+  | oWins newBoard = a
+  | x < y          = a
+  | otherwise      = b
+  where newBoard = board i

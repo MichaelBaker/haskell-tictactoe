@@ -16,6 +16,7 @@ jQuery(function() {
 
       space.html();
       getRequest.success(function(data) {
+        console.log(data);
         var i = 0;
         var token;
 

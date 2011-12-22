@@ -2,7 +2,7 @@ module Handler.Move where
 
 import Import
 import Yesod.Json
-import Data.Text hiding (zip, foldr, head, map, unwords)
+import Data.Text hiding (zip, foldr, head, map, unwords, concat)
 import GameState
 import Token
 import Board
@@ -10,39 +10,39 @@ import Board
 getMoveR :: Handler RepJson
 getMoveR = do
   board <- lookupGetParam boardParam
-  jsonToRepJson $ jsonMap [("newBoard", newBoard board),
-                           ("winState", winState board)]
+  case respondTo board of
+    Nothing            -> invalidArgs []
+    (Just jsonReponse) -> jsonReponse
 
-newBoard board = case board of
-  Nothing      -> jsonList ["Nothing"]
-  Just message -> jsonList . map jsonScalar . map show $ makeMove message
+respondTo Nothing = Nothing
+respondTo (Just encodedBoard) =
+  Just $ jsonToRepJson (jsonMap [("newBoard", responseBoard),
+                                 ("winState", winState newGameState)])
+  where newGameState  = makeMove encodedBoard
+        responseBoard = jsonList $ map (jsonScalar . show) (tokens $ board newGameState)
 
-winState Nothing = jsonScalar "Nothing"
-winState (Just text)
+winState gameState
   | xWins initialBoard = jsonScalar "x wins"
   | oWins initialBoard = jsonScalar "o wins"
   | tie   initialBoard = jsonScalar "tie"
   | otherwise          = jsonScalar "in progress"
-  where initialBoard = board $ unpackBoard text
+  where initialBoard = board gameState
+
+unpackBoard = createGameState . unpack
+
+createGameState = GameState O . Board . map queryCharToToken
 
 queryCharToToken 'e' = Empty
 queryCharToToken 'x' = X
 queryCharToToken 'o' = O
 
-createGameState = GameState O . Board . map queryCharToToken
-
 makeMove text
-  | xWins initialBoard = tokens initialBoard
-  | oWins initialBoard = tokens initialBoard
-  | tie   initialBoard = tokens initialBoard
-  | otherwise          = tokens . board . bestMove $ gameState
+  | xWins initialBoard = gameState
+  | oWins initialBoard = gameState
+  | tie   initialBoard = gameState
+  | otherwise          = bestMove gameState
   where gameState    = unpackBoard text
         initialBoard = board gameState
 
-unpackBoard = createGameState . unpack
-
 boardParam :: Text
 boardParam = pack "board"
-
-moveParam :: Text
-moveParam = pack "move"

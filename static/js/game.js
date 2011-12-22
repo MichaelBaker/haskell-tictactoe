@@ -5,7 +5,6 @@ window.Game = function(tokens) {
   var i              = 0;
   var isPlayerTurn   = false;
   var spaces         = [];
-  var acceptingInput = true;
 
   for(i = 0; i < 9; i++) {
     spaces.push(new emptyToken());
@@ -41,14 +40,6 @@ window.Game = function(tokens) {
       return space.toQueryString();
     });
     return spaceStrings.join("");
-  };
-
-  this.disableInput = function() {
-    acceptingInput = false;
-  };
-
-  this.enableInput = function() {
-    acceptingInput = true;
   };
 
   this.eachToken = function(func) {

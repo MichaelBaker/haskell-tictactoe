@@ -1,20 +1,59 @@
 jQuery(function() {
-  var tokens  = {x: X, o: O, empty: Empty};
+  var tokens         = {x: X, o: O, empty: Empty};
+  var game           = new Game(tokens);
+  var acceptingInput = true;
 
-  var game = new Game(tokens);
+  $(".space").click(function() {
+    if(!isAcceptingInput()) { return; }
+
+    disableInput();
+
+    var spaceNumber = jQuery(this).attr("-data-number");
+    var result      = game.tryToPlaceXToken(spaceNumber);
+
+    if(result instanceof Failure) {
+      enableInput();
+    }
+    else {
+      makeMoveRequest({gameOver: endGame, continueGame: enableInput});
+    }
+  });
+
+  var disableInput     = function() { return acceptingInput = false; };
+  var enableInput      = function() { return acceptingInput = true; };
+  var isAcceptingInput = function() { return acceptingInput; };
+
+  var makeMoveRequest = function(callbacks) {
+    var getRequest = jQuery.get("move", {board : game.boardQueryString()});
+
+    getRequest.success(function(data) {
+      game = Game.fromArray(tokens, data.newBoard);
+      drawBoard(game);
+      if(data.winState === "in progress") {
+        callbacks.continueGame();
+      }
+      else {
+        callbacks.gameOver(data.winState);
+      }
+    });
+    getRequest.error(function(){
+      callbacks.continueGame();
+    });
+  };
 
   var endGame = function(message) {
-    game.disableInput();
-    var messageDiv = jQuery("<div>").html(message);
+    disableInput();
+    var messageDiv = jQuery("<div id='win-message'>").html(message);
     jQuery("body").prepend(messageDiv);
 
-    var resetGame = function() {
+    var restartGame = function() {
       messageDiv.remove();
       game = new Game(tokens);
       drawBoard(game);
+      enableInput();
     };
 
-    setTimeout(resetGame, 2000);
+    setTimeout(restartGame, 2000);
   };
 
   var drawBoard = function(game) {
@@ -22,37 +61,4 @@ jQuery(function() {
       jQuery(".space[-data-number='" + index.toString() + "']").html(token.toString());
     });
   };
-
-  $(".space").click(function() {
-    var spaceNumber = jQuery(this).attr("-data-number");
-    var result      = game.tryToPlaceXToken(spaceNumber);
-    var space       = jQuery(this);
-
-    game.disableInput();
-
-    if(result instanceof Failure) {
-      console.log("You Cannot move here");
-      game.enableInput();
-    }
-    else {
-      var getRequest = jQuery.get("move", {board : game.boardQueryString()});
-
-      space.html();
-      getRequest.success(function(data) {
-        var i = 0;
-        var token;
-
-        game = Game.fromArray(tokens, data.newBoard);
-        drawBoard(game);
-
-        if(data.winState !== "in progress") {
-          endGame(data.winState);
-        }
-        game.enableInput();
-      });
-      getRequest.error(function() {
-        console.log("I'm calling the police.");
-      });
-    }
-  });
 });

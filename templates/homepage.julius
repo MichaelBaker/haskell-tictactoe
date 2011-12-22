@@ -18,10 +18,9 @@ jQuery(function() {
   };
 
   var drawBoard = function(game) {
-    for(i = 0; i < 9; i++) {
-      token = game.tokenAt(i);
-      jQuery(".space[-data-number='" + i.toString() + "']").html(token.toString());
-    }
+    game.eachToken(function(token, index) {
+      jQuery(".space[-data-number='" + index.toString() + "']").html(token.toString());
+    });
   };
 
   $(".space").click(function() {
@@ -29,8 +28,11 @@ jQuery(function() {
     var result      = game.tryToPlaceXToken(spaceNumber);
     var space       = jQuery(this);
 
+    game.disableInput();
+
     if(result instanceof Failure) {
       console.log("You Cannot move here");
+      game.enableInput();
     }
     else {
       var getRequest = jQuery.get("move", {board : game.boardQueryString()});
@@ -46,6 +48,7 @@ jQuery(function() {
         if(data.winState !== "in progress") {
           endGame(data.winState);
         }
+        game.enableInput();
       });
       getRequest.error(function() {
         console.log("I'm calling the police.");

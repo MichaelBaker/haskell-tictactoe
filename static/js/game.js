@@ -50,6 +50,13 @@ window.Game = function(tokens) {
   this.enableInput = function() {
     acceptingInput = true;
   };
+
+  this.eachToken = function(func) {
+    for(var i = 0; i < 9; i++) {
+      func(this.tokenAt(i), i);
+    }
+    return this;
+  };
 };
 
 window.Game.fromArray = function(tokens, array) {

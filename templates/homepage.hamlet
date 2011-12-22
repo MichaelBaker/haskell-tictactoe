@@ -1,7 +1,6 @@
-<div #banner>
-  <span>The Gentleman's Game of
-  <h1>TicTacToe
-
+<img #banner src="/static/images/Header.png" >
 <div #board>
+  <img #board-top src="/static/images/BoardTop.png">
   $forall number <- spaces
     <div .space -data-number="#{show number}">
+  <img #board-bottom src="/static/images/Boardbottom.png">

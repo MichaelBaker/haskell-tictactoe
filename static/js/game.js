@@ -11,7 +11,7 @@ window.Game = function(tokens) {
   }
 
   var tryToPlaceToken = function(token, space) {
-    if(acceptingInput && isValidSpace(space)) {
+    if(isValidSpace(space)) {
       spaces[space] = new token();
       return true;
     } else {

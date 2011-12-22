@@ -1,22 +1,27 @@
 window.Game = function(tokens) {
-  var xToken       = tokens.x;
-  var oToken       = tokens.o;
-  var emptyToken   = tokens.empty;
-  var i            = 0;
-  var isPlayerTurn = false;
-  var spaces       = [];
+  var xToken         = tokens.x;
+  var oToken         = tokens.o;
+  var emptyToken     = tokens.empty;
+  var i              = 0;
+  var isPlayerTurn   = false;
+  var spaces         = [];
+  var acceptingInput = true;
 
   for(i = 0; i < 9; i++) {
     spaces.push(new emptyToken());
   }
 
   var tryToPlaceToken = function(token, space) {
-    if(space < spaces.length && space >= 0 && spaces[space] instanceof emptyToken) {
+    if(acceptingInput && isValidSpace(space)) {
       spaces[space] = new token();
       return true;
     } else {
       return new Failure();
     }
+  };
+
+  var isValidSpace = function(space) {
+    return space < spaces.length && space >= 0 && spaces[space] instanceof emptyToken
   };
 
   this.tryToPlaceXToken = function(space) {
@@ -36,6 +41,14 @@ window.Game = function(tokens) {
       return space.toQueryString();
     });
     return spaceStrings.join("");
+  };
+
+  this.disableInput = function() {
+    acceptingInput = false;
+  };
+
+  this.enableInput = function() {
+    acceptingInput = true;
   };
 };
 

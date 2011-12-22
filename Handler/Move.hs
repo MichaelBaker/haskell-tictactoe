@@ -22,9 +22,9 @@ respondTo (Just encodedBoard) =
         responseBoard = jsonList $ map (jsonScalar . show) (tokens $ board newGameState)
 
 winState gameState
-  | xWins initialBoard = jsonScalar "x wins"
-  | oWins initialBoard = jsonScalar "o wins"
-  | tie   initialBoard = jsonScalar "tie"
+  | xWins initialBoard = jsonScalar "~ X wins! ~"
+  | oWins initialBoard = jsonScalar "~ O wins! ~"
+  | tie   initialBoard = jsonScalar "~ Tie ~"
   | otherwise          = jsonScalar "in progress"
   where initialBoard = board gameState
 

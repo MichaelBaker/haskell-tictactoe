@@ -3,12 +3,33 @@ jQuery(function() {
 
   var game = new Game(tokens);
 
+  var endGame = function(message) {
+    game.disableInput();
+    var messageDiv = jQuery("<div>").html(message);
+    jQuery("body").prepend(messageDiv);
+
+    var resetGame = function() {
+      messageDiv.remove();
+      game = new Game(tokens);
+      drawBoard(game);
+    };
+
+    setTimeout(resetGame, 2000);
+  };
+
+  var drawBoard = function(game) {
+    for(i = 0; i < 9; i++) {
+      token = game.tokenAt(i);
+      jQuery(".space[-data-number='" + i.toString() + "']").html(token.toString());
+    }
+  };
+
   $(".space").click(function() {
     var spaceNumber = jQuery(this).attr("-data-number");
     var result      = game.tryToPlaceXToken(spaceNumber);
     var space       = jQuery(this);
 
-    if(result instanceof Failure){
+    if(result instanceof Failure) {
       console.log("You Cannot move here");
     }
     else {
@@ -16,14 +37,14 @@ jQuery(function() {
 
       space.html();
       getRequest.success(function(data) {
-        console.log(data);
         var i = 0;
         var token;
 
         game = Game.fromArray(tokens, data.newBoard);
-        for(i = 0; i < 9; i++) {
-          token = game.tokenAt(i);
-          jQuery(".space[-data-number='" + i.toString() + "']").html(token.toString());
+        drawBoard(game);
+
+        if(data.winState !== "in progress") {
+          endGame(data.winState);
         }
       });
       getRequest.error(function() {

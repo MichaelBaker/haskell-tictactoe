@@ -3,7 +3,7 @@
 }
 
 body {
-  background:  url("/static/images/grey_stripes.png");
+  background: url("/static/images/grey_stripes.png");
 }
 
 #banner {
@@ -20,16 +20,16 @@ body {
 }
 
 #banner h1 {
-  text-align:  center;
-  font-size:   3.5em;
-  margin:      0;
+  text-align: center;
+  font-size:  3.5em;
+  margin:     0;
 }
 
 #board {
   position: relative;
-  width: 300px;
-  height: 334px;
-  margin: auto;
+  width:    300px;
+  height:   334px;
+  margin:   auto;
 }
 
 #board-top {
@@ -45,11 +45,10 @@ body {
 }
 
 #win-message {
-  position:   absolute;
-  left:       0px;
-  top:        53px;
-  background-color: rgba(0.1,0.1,0.1,0.5);
-  z-index:          100;
+  position: absolute;
+  left:     0px;
+  top:      53px;
+  z-index:  100;
 }
 
 #win-message span {
@@ -62,11 +61,12 @@ body {
 }
 
 .space {
-  position: absolute;
-  width:            100px;
-  height:           100px;
-  text-align:       center;
-  font-size:        70px;
+  position:   absolute;
+  width:      100px;
+  height:     100px;
+  text-align: center;
+  font-size:  70px;
+  cursor:     pointer;
 }
 
 [-data-number='0'] {
@@ -82,8 +82,8 @@ body {
 }
 
 [-data-number='2'] {
-  left: 202px;
-  top:  15px;
+  left:          202px;
+  top:           15px;
   border-left:   2px solid black;
   border-bottom: 2px solid black;
 }

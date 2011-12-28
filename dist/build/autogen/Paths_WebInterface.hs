@@ -12,10 +12,10 @@ version = Version {versionBranch = [0,0,0], versionTags = []}
 
 bindir, libdir, datadir, libexecdir :: FilePath
 
-bindir     = "/Users/michaelbaker/Documents/Haskell/TicTacToe/WebInterface/cabal-dev//bin"
-libdir     = "/Users/michaelbaker/Documents/Haskell/TicTacToe/WebInterface/cabal-dev//lib/WebInterface-0.0.0/ghc-7.0.3"
-datadir    = "/Users/michaelbaker/Documents/Haskell/TicTacToe/WebInterface/cabal-dev//share/WebInterface-0.0.0"
-libexecdir = "/Users/michaelbaker/Documents/Haskell/TicTacToe/WebInterface/cabal-dev//libexec"
+bindir     = "/Users/michaelbaker/.cabal/bin"
+libdir     = "/Users/michaelbaker/.cabal/lib/WebInterface-0.0.0/ghc-7.0.3"
+datadir    = "/Users/michaelbaker/.cabal/share/WebInterface-0.0.0"
+libexecdir = "/Users/michaelbaker/.cabal/libexec"
 
 getBinDir, getLibDir, getDataDir, getLibexecDir :: IO FilePath
 getBinDir = catch (getEnv "WebInterface_bindir") (\_ -> return bindir)

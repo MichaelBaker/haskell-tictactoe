@@ -34,9 +34,9 @@ placeToken board t token = placeTokenAtIndex board token (indexFromTuple t)
 
 indexFromTuple (column, row) = row * 3 + column
 
-data Board = Board [Token] deriving (Eq)
-
 tokens (Board list) = list
+
+data Board = Board [Token] deriving (Eq)
 
 instance Ord Board where
   compare a b = compare (boardValue a) (boardValue b)
